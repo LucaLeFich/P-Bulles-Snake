@@ -7,6 +7,9 @@ import { drawScore } from "./score.js";
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
+// ctx.fillStyle = "lightgrey";
+// ctx.fillRect(0, 0, canvas.width, canvas.height);
+
 const box = 20;
 const gameSpeed = 200;
 let snake;
@@ -27,7 +30,17 @@ function startGame() {
 }
 
 function draw() {
-  // A compléter
+  // Efface le canvas avant de redessiner
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Dessine le serpent
+  drawSnake(ctx, snake, box);
+
+  // Dessine la nourriture
+  drawFood(ctx, food, box);
+
+  // Affiche le score
+  //drawScore(ctx, score);
 }
 
 startGame();

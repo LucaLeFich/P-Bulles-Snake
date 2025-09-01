@@ -7,7 +7,7 @@
  * @returns {Array<{x: number, y: number}>} - Un tableau contenant un objet représentant la position du premier segment du serpent.
  */
 function initSnake() {
-  // A compléter
+  return [{ x: 9 * 20, y: 10 * 20 }];
 }
 
 /**
@@ -23,7 +23,16 @@ function initSnake() {
  * @returns {{x: number, y: number}} - Un objet représentant les nouvelles coordonnées `x` et `y` de la tête du serpent après le déplacement.
  */
 function moveSnake() {
-  // A compléter
+  if (KeyboardEvent.key === "a" && direction !== "RIGHT") {
+    direction = "LEFT";
+  } else if (KeyboardEvent.key === "w" && direction !== "DOWN") {
+    direction = "UP";
+  } else if (KeyboardEvent.key === "d" && direction !== "LEFT") {
+    direction = "RIGHT";
+  } else if (KeyboardEvent.key === "s" && direction !== "UP") {
+    direction = "DOWN";
+  }
+  return direction;
 }
 
 /**
@@ -38,6 +47,11 @@ function moveSnake() {
  * @param {Array<{x: number, y: number}>} snake - Un tableau représentant le serpent, où chaque élément est un segment avec des coordonnées `x` et `y`.
  * @param {number} box - La taille d'une case de la grille en pixels, utilisée pour déterminer la taille de chaque segment du serpent.
  */
-function drawSnake() {
-  // A compléter
+function drawSnake(ctx, snake, box) {
+  for (let i = 0; i < snake.length; i++) {
+    ctx.fillStyle = i === 0 ? "darkgreen" : "green"; // tête en foncé, corps en vert
+    ctx.fillRect(snake[i].x, snake[i].y, box, box);
+  }
 }
+
+export { initSnake, moveSnake, drawSnake };
