@@ -33,6 +33,9 @@ function draw() {
   // Efface le canvas avant de redessiner
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+  // Met à jour la position du serpent
+  snake = moveSnake(snake, direction, box);
+
   // Dessine le serpent
   drawSnake(ctx, snake, box);
 

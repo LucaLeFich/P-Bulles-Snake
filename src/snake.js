@@ -22,17 +22,25 @@ function initSnake() {
  * @param {number} box - La taille d'une case de la grille en pixels, utilisée pour déterminer la distance de déplacement du serpent.
  * @returns {{x: number, y: number}} - Un objet représentant les nouvelles coordonnées `x` et `y` de la tête du serpent après le déplacement.
  */
-function moveSnake() {
-  if (KeyboardEvent.key === "a" && direction !== "RIGHT") {
-    direction = "LEFT";
-  } else if (KeyboardEvent.key === "w" && direction !== "DOWN") {
-    direction = "UP";
-  } else if (KeyboardEvent.key === "d" && direction !== "LEFT") {
-    direction = "RIGHT";
-  } else if (KeyboardEvent.key === "s" && direction !== "UP") {
-    direction = "DOWN";
+function moveSnake(snake, direction, box) {
+  const head = { x: snake[0].x, y: snake[0].y };
+
+  if (direction === "LEFT"){
+    head.x -= box;
+  } else if (direction === "UP"){
+    head.y -= box;
+  } else if (direction === "RIGHT") {
+    head.x += box;
+  } else if (direction === "DOWN") {
+    head.y += box;
   }
-  return direction;
+
+  // ajoute la nouvelle tête au début du tableau
+  snake.unshift(head);
+  // enlève le dernier segment pour simuler le mouvement
+  snake.pop();
+
+  return snake;
 }
 
 /**
@@ -49,7 +57,7 @@ function moveSnake() {
  */
 function drawSnake(ctx, snake, box) {
   for (let i = 0; i < snake.length; i++) {
-    ctx.fillStyle = i === 0 ? "darkgreen" : "green"; // tête en foncé, corps en vert
+    ctx.fillStyle = i === 0 ? "darkgreen" : "green"; // tête en vert foncé, corps en vert
     ctx.fillRect(snake[i].x, snake[i].y, box, box);
   }
 }
