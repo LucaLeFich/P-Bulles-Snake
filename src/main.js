@@ -44,6 +44,12 @@ function draw() {
 
   // Affiche le score
   //drawScore(ctx, score);
+
+  if (checkCollision(snake[0], snake) || checkWallCollision(snake[0], canvas, box)) {
+    clearInterval(gameInterval);
+    alert("Game Over!");
+    return;
+  }
 }
 
-startGame();
+startGame()

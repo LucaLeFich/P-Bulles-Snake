@@ -10,8 +10,17 @@
  * @param {Array<{x: number, y: number}>} snakeArray - Un tableau d'objets représentant les segments du serpent, où chaque objet contient des coordonnées `x` et `y`.
  * @returns {boolean} - Retourne `true` si la tête du serpent entre en collision avec un segment de son corps, sinon `false`.
  */
-function checkCollision() {
-  // A compléter
+function checkCollision(head, snakeArray) {
+  if (!snakeArray || snakeArray.length < 2) {
+    return false; // Pas assez de segments pour une collision
+  }
+
+  for (let i = 1; i < snakeArray.length; i++) {
+    if (head.x === snakeArray[i].x && head.y === snakeArray[i].y) {
+      return true; // Collision détectée
+    }
+  }
+  return false; // Pas de collision détectée
 }
 
 /**
@@ -27,8 +36,16 @@ function checkCollision() {
  * @param {number} box - La taille d'une case de la grille en pixels, utilisée pour déterminer les limites du déplacement du serpent.
  * @returns {boolean} - Retourne `true` si la tête du serpent entre en collision avec un mur, sinon `false`.
  */
-function checkWallCollision() {
-  // A compléter
+function checkWallCollision(head, canvas, box) {
+  if (
+    head.x < box || // Collision avec le mur gauche
+    head.x > canvas.width - box || // Collision avec le mur droit
+    head.y < box || // Collision avec le mur supérieur
+    head.y > canvas.height - box // Collision avec le mur inférieur
+  ) {
+    return true; // Collision détectée
+  }
+  return false; // Pas de collision détectée
 }
 
 export { checkCollision, checkWallCollision };
