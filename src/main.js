@@ -3,6 +3,7 @@ import { generateFood, drawFood } from "./food.js";
 import { handleDirectionChange } from "./controls.js";
 import { checkCollision, checkWallCollision } from "./collision.js";
 import { drawScore } from "./score.js";
+import { checkFoodCollision } from "./collision.js";
 
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
@@ -42,14 +43,19 @@ function draw() {
   // Dessine la nourriture
   drawFood(ctx, food, box);
 
-  // Affiche le score
-  //drawScore(ctx, score);
-
   if (checkCollision(snake[0], snake) || checkWallCollision(snake[0], canvas, box)) {
     clearInterval(gameInterval);
-    alert("Game Over!");
+    alert("Game Over! Score: " + score);
     return;
   }
+
+  if (checkFoodCollision(snake[0], food)) {
+    score += 1;
+    food = generateFood(box, canvas);
+  }
+
+  // Affiche le score
+  //drawScore(ctx, score);
 }
 
 startGame()
