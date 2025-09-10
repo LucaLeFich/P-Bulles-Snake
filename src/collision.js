@@ -40,10 +40,10 @@ function checkCollision(head, snakeArray) {
 
 function checkWallCollision(head, canvas, box) {
   if (
-    head.x < box || // Collision avec le mur gauche
-    head.x > canvas.width - box || // Collision avec le mur droit
-    head.y < box || // Collision avec le mur supérieur
-    head.y > canvas.height - box // Collision avec le mur inférieur
+    head.x < 0 || // Collision avec le mur gauche
+    head.x > canvas.width - 1 || // Collision avec le mur droit
+    head.y < 0 || // Collision avec le mur supérieur
+    head.y > canvas.height - 1 // Collision avec le mur inférieur
   ) {
     return true; // Collision détectée
   }
