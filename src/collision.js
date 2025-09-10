@@ -38,7 +38,7 @@ function checkCollision(head, snakeArray) {
  * @returns {boolean} - Retourne `true` si la tête du serpent entre en collision avec un mur, sinon `false`.
  */
 
-function checkWallCollision(head, canvas, box) {
+function checkWallCollision(head, canvas) {
   if (
     head.x < 0 || // Collision avec le mur gauche
     head.x > canvas.width - 1 || // Collision avec le mur droit
