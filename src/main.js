@@ -55,7 +55,7 @@ function draw() {
   }
 
   // Affiche le score
-  //drawScore(ctx, score);
+  drawScore(ctx, score);
 }
 
 startGame()
