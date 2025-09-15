@@ -11,13 +11,13 @@
  * @returns {string} - La nouvelle direction du serpent après traitement, ou la direction actuelle si le changement n'est pas valide.
  */
 function handleDirectionChange(event, currentDirection) {
-  if (event.key === "ArrowLeft" && currentDirection !== "RIGHT") {
+  if (event.key === "ArrowLeft" || event.key === "a" && currentDirection !== "RIGHT") {
     return "LEFT";
-  } else if (event.key === "ArrowUp" && currentDirection !== "DOWN") {
+  } else if (event.key === "ArrowUp" || event.key === "w" && currentDirection !== "DOWN") {
     return "UP";
-  } else if (event.key === "ArrowRight" && currentDirection !== "LEFT") {
+  } else if (event.key === "ArrowRight" || event.key === "d" && currentDirection !== "LEFT") {
     return "RIGHT";
-  } else if (event.key === "ArrowDown" && currentDirection !== "UP") {
+  } else if (event.key === "ArrowDown" || event.key === "s" && currentDirection !== "UP") {
     return "DOWN";
   }
   return currentDirection; // si la touche n'est pas valide, on garde la direction actuelle

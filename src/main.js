@@ -52,6 +52,7 @@ function draw() {
   if (checkFoodCollision(snake[0], food)) {
     score += 1;
     food = generateFood(box, canvas);
+    snake.push({}); // Ajoute un segment au serpent en ne supprimant pas le dernier segment
   }
 
   // Affiche le score
