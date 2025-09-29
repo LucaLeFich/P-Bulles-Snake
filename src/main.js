@@ -17,9 +17,9 @@ const gameSpeed = 200;
 let snake;
 let food;
 let direction = "RIGHT";
-let score = 0;
+let score;
 let gameInterval; // Variable pour stocker l'identifiant de l'intervalle
-let startTime = Date.now(); // Temps de début du jeu
+let startTime
 
 document.addEventListener("keydown", (event) => {
   direction = handleDirectionChange(event, direction);
@@ -34,6 +34,8 @@ function mainMenu() {
   ctx.fillText("Press Enter to Start", canvas.width / 2, canvas.height / 2);
   document.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
+      clearInterval(gameInterval);
+      score = 0
       startGame();
     }
   });
@@ -43,6 +45,7 @@ function startGame() {
   snake = initSnake();
   food = generateFood(box, canvas);
   gameInterval = setInterval(draw, gameSpeed); // Stockage de l'identifiant de l'intervalle
+  startTime = Date.now(); // Temps de début du jeu
 }
 
 function endGame() {
@@ -67,14 +70,14 @@ function pauseGame(){
   ctx.fillText("Pause")
 }
 
-document.addEventListener("keydown", (event) => {
-    if (event.key === "space"){
-      pauseGame()
-    }
-  });
 //--------------------------------------------------------------------
 
 function draw() {
+  document.addEventListener("keydown", (event) => {
+      if (event.key === "space"){
+        pauseGame()
+      }
+    });
   // Efface le canvas avant de redessiner
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 

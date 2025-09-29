@@ -12,7 +12,7 @@
  * @param {{Food}} food
  */
 function checkCollision(head, snakeArray) {
-  if (!snakeArray || snakeArray.length < 2) {
+  if (!snakeArray) {
     return false; // Pas assez de segments pour une collision
   }
 
