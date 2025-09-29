@@ -57,7 +57,7 @@ function moveSnake(snake, direction, box) {
  */
 function drawSnake(ctx, snake, box) {
   for (let i = 0; i < snake.length; i++) {
-    ctx.fillStyle = i === 0 ? "darkgreen" : "green"; // tête en vert foncé, corps en vert
+    ctx.fillStyle = i === 0 ? "green" : "lightgreen"; // tête en vert foncé, corps en vert
     ctx.fillRect(snake[i].x, snake[i].y, box, box);
     ctx.strokeStyle = "black";
     ctx.strokeRect(snake[i].x, snake[i].y, box, box);
