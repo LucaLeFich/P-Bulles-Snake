@@ -60,7 +60,7 @@ function endGame() {
   ctx.textAlign = "center";
   ctx.fillText("Game Over !", canvas.width / 2, canvas.height / 2 - 50);
   ctx.fillText(`Score: ${score}`, canvas.width / 2, canvas.height / 2 -10);
-  ctx.fillText(`Time: ${Math.floor((Date.now() - startTime) / 1000)} seconds`, canvas.width / 2, canvas.height / 2 +30);
+  ctx.fillText(`Time: ${Math.floor((Date.now() - startTime - pausedTime) / 1000)} seconds`, canvas.width / 2, canvas.height / 2 +30);
 }
 
 //---------------------------------------------------------------
