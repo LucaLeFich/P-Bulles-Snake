@@ -20,6 +20,10 @@ let direction = "RIGHT";
 let score;
 let gameInterval; // Variable pour stocker l'identifiant de l'intervalle
 let startTime
+let isPaused = false;
+let pausedTime = 0;
+let pauseStart = 0;
+
 
 document.addEventListener("keydown", (event) => {
   direction = handleDirectionChange(event, direction);
@@ -60,24 +64,42 @@ function endGame() {
 }
 
 //---------------------------------------------------------------
-function pauseGame(){
-  gameInterval = 0
-  ctx.fillStyle = "lightgrey";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "black"
-  ctx.font = "30px Arial";
-  ctx.textAlign = "center";
-  ctx.fillText("Pause")
+
+function pauseGame() {
+  if (gameInterval) {
+    clearInterval(gameInterval);
+    pauseStart = Date.now();
+    isPaused = true;
+    ctx.fillStyle = "lightgrey";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "white";
+    ctx.font = "40px Arial";
+    ctx.fillText("PAUSE", canvas.width / 2 - 70, canvas.height / 2);
+  }
 }
+
+function resumeGame() {
+  if (isPaused) {
+    pausedTime += Date.now() - pauseStart;
+    gameInterval = setInterval(draw, gameSpeed);
+    isPaused = false;
+  }
+}
+
+document.addEventListener("keydown", (event) => {
+  if (event.code === "Space") {
+    if (!isPaused) {
+      pauseGame();
+    } else {
+      resumeGame();
+    }
+  }
+});
+
 
 //--------------------------------------------------------------------
 
 function draw() {
-  document.addEventListener("keydown", (event) => {
-      if (event.key === "space"){
-        pauseGame()
-      }
-    });
   // Efface le canvas avant de redessiner
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -104,7 +126,7 @@ function draw() {
   // Affiche le score
   drawScore(ctx, score);
 
-  drawTimer(ctx, Math.floor((Date.now() - startTime) / 1000));
+  drawTimer(ctx, Math.floor((Date.now() - startTime - pausedTime) / 1000));
 }
 
 mainMenu();
