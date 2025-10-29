@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>collision.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Events</li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="global.html#event:KeyDown">KeyDown</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#checkCollision">checkCollision</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#checkFoodCollision">checkFoodCollision</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#checkWallCollision">checkWallCollision</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#draw">draw</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#drawFood">drawFood</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#drawScore">drawScore</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#drawSnake">drawSnake</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#drawTimer">drawTimer</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#endGame">endGame</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#generateFood">generateFood</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#handleDirectionChange">handleDirectionChange</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#initSnake">initSnake</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#loadConfig">loadConfig</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#mainMenu">mainMenu</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#moveSnake">moveSnake</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#pauseGame">pauseGame</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#resumeGame">resumeGame</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#startGame">startGame</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">collision.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Vérifie si la tête du serpent entre en collision avec son propre corps.
+ *
+ * Cette fonction détermine si la tête du serpent occupe la même position que
+ * n'importe quel autre segment de son corps. Si la tête du serpent se trouve
+ * aux mêmes coordonnées `x` et `y` qu'un autre segment, la fonction retourne `true`,
+ * indiquant une collision avec le corps du serpent (c'est-à-dire que le serpent se mord la queue).
+ *
+ * @param {{x: number, y: number}} head - Un objet représentant les coordonnées `x` et `y` de la tête du serpent.
+ * @param {Array&lt;{x: number, y: number}>} snakeArray - Un tableau d'objets représentant les segments du serpent, où chaque objet contient des coordonnées `x` et `y`.
+ * @returns {boolean} - Retourne `true` si la tête du serpent entre en collision avec un segment de son corps, sinon `false`.
+ * @param {{Food}} food
+ */
+function checkCollision(head, snakeArray) {
+  if (!snakeArray) {
+    return false; // Pas assez de segments pour une collision
+  }
+
+  for (let i = 1; i &lt; snakeArray.length; i++) {
+    if (head.x === snakeArray[i].x &amp;&amp; head.y === snakeArray[i].y) {
+      return true; // Collision détectée
+    }
+  }
+  return false; // Pas de collision détectée
+}
+
+/**
+ * Vérifie si la tête du serpent entre en collision avec les murs du canvas.
+ *
+ * Cette fonction détermine si la tête du serpent a dépassé les limites du canvas,
+ * ce qui signifierait une collision avec un mur. Si la tête du serpent sort du canvas
+ * (c'est-à-dire si ses coordonnées `x` ou `y` sont en dehors des limites définies par
+ * la largeur et la hauteur du canvas), la fonction retourne `true`, indiquant une collision.
+ *
+ * @param {{x: number, y: number}} head - Un objet représentant les coordonnées `x` et `y` de la tête du serpent.
+ * @param {HTMLCanvasElement} canvas - L'élément canvas représentant la surface de jeu.
+ * @param {number} box - La taille d'une case de la grille en pixels, utilisée pour déterminer les limites du déplacement du serpent.
+ * @returns {boolean} - Retourne `true` si la tête du serpent entre en collision avec un mur, sinon `false`.
+ */
+
+function checkWallCollision(head, canvas) {
+  if (
+    head.x &lt; 0 || // Collision avec le mur gauche
+    head.x > canvas.width - 1 || // Collision avec le mur droit
+    head.y &lt; 0 || // Collision avec le mur supérieur
+    head.y > canvas.height - 1 // Collision avec le mur inférieur
+  ) {
+    return true; // Collision détectée
+  }
+  return false; // Pas de collision détectée
+}
+
+/**
+ * Vérifie si la tête du serpent entre en collision avec la nourriture
+ * 
+ * @param {{x: number, y: number}} head - Coordonnées de la tête du serpent
+ * @param {{x: number, y: number}} food - Coordonnées de la nourriture
+ * @returns {boolean} - Retourne `true` si la tête du serpent entre en collision avec la nourriture, sinon `false`.
+ */
+function checkFoodCollision(head, food) {
+  if (head.x === food.x &amp;&amp; head.y === food.y) {
+    return true; // Collision avec la nourriture détectée
+  }
+  return false; // Pas de collision détectée
+}
+
+export { checkCollision, checkWallCollision, checkFoodCollision };</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Wed Oct 29 2025 15:35:44 GMT+0100 (heure normale d’Europe centrale) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>snake.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Events</li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="global.html#event:KeyDown">KeyDown</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#checkCollision">checkCollision</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#checkFoodCollision">checkFoodCollision</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#checkWallCollision">checkWallCollision</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#draw">draw</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#drawFood">drawFood</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#drawScore">drawScore</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#drawSnake">drawSnake</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#drawTimer">drawTimer</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#endGame">endGame</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#generateFood">generateFood</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#handleDirectionChange">handleDirectionChange</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#initSnake">initSnake</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#loadConfig">loadConfig</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#mainMenu">mainMenu</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#moveSnake">moveSnake</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#pauseGame">pauseGame</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#resumeGame">resumeGame</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#startGame">startGame</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">snake.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Initialise le serpent au début du jeu.
+ *
+ * Cette fonction crée le serpent en tant que tableau contenant un seul segment,
+ * positionné à une position de départ définie sur la grille.
+ *
+ * @returns {Array&lt;{x: number, y: number}>} - Un tableau contenant un objet représentant la position du premier segment du serpent.
+ */
+function initSnake() {
+  return [{ x: 9 * 20, y: 10 * 20 }];
+}
+
+/**
+ * Déplace le serpent dans la direction actuelle.
+ *
+ * Cette fonction calcule la nouvelle position de la tête du serpent en fonction
+ * de la direction actuelle (gauche, haut, droite, bas). Le reste du corps du serpent
+ * suit la tête. La fonction retourne un objet représentant la nouvelle position de la tête du serpent.
+ *
+ * @param {Array&lt;{x: number, y: number}>} snake - Le tableau représentant le serpent, où chaque élément est un segment avec des coordonnées `x` et `y`.
+ * @param {string} direction - La direction actuelle du mouvement du serpent ("LEFT", "UP", "RIGHT", ou "DOWN").
+ * @param {number} box - La taille d'une case de la grille en pixels, utilisée pour déterminer la distance de déplacement du serpent.
+ * @returns {{x: number, y: number}} - Un objet représentant les nouvelles coordonnées `x` et `y` de la tête du serpent après le déplacement.
+ */
+function moveSnake(snake, direction, box) {
+  const head = { x: snake[0].x, y: snake[0].y };
+
+  if (direction === "LEFT"){
+    head.x -= box;
+  } else if (direction === "UP"){
+    head.y -= box;
+  } else if (direction === "RIGHT") {
+    head.x += box;
+  } else if (direction === "DOWN") {
+    head.y += box;
+  }
+
+  // ajoute la nouvelle tête au début du tableau
+  snake.unshift(head);
+  // enlève le dernier segment pour simuler le mouvement
+  snake.pop();
+
+  return snake;
+}
+
+/**
+ * Dessine le serpent sur le canvas.
+ *
+ * Cette fonction parcourt chaque segment du serpent et le dessine sur le canvas en utilisant
+ * un rectangle coloré. La tête du serpent est dessinée dans une couleur différente des autres segments
+ * pour la distinguer visuellement. Chaque segment est dessiné à sa position actuelle sur la grille,
+ * avec une taille déterminée par la valeur de `box`.
+ *
+ * @param {CanvasRenderingContext2D} ctx - Le contexte de rendu 2D du canvas utilisé pour dessiner.
+ * @param {Array&lt;{x: number, y: number}>} snake - Un tableau représentant le serpent, où chaque élément est un segment avec des coordonnées `x` et `y`.
+ * @param {number} box - La taille d'une case de la grille en pixels, utilisée pour déterminer la taille de chaque segment du serpent.
+ */
+function drawSnake(ctx, snake, box) {
+  for (let i = 0; i &lt; snake.length; i++) {
+    ctx.fillStyle = i === 0 ? "green" : "lightgreen"; // tête en vert foncé, corps en vert
+    ctx.fillRect(snake[i].x, snake[i].y, box, box);
+    ctx.strokeStyle = "black";
+    ctx.strokeRect(snake[i].x, snake[i].y, box, box);
+  }
+}
+
+export { initSnake, moveSnake, drawSnake };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Wed Oct 29 2025 15:35:44 GMT+0100 (heure normale d’Europe centrale) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

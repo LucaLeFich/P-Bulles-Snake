@@ -1,0 +1,18 @@
+{
+  "box": 20,
+  "gameSpeed": 200,
+  "canvasWidth": 400,
+  "canvasHeight": 400,
+  "initialDirection": "RIGHT",
+  "startingScore": 0,
+  "colors": {
+    "background": "lightgrey",
+    "pauseOverlay": "rgba(121, 117, 117, 0.5)",
+    "pauseText": "white",
+    "textFont": "40px Arial"
+  },
+  "keys": {
+    "pause": "Space",
+    "start": "Enter"
+  }
+}

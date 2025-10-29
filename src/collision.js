@@ -50,10 +50,18 @@ function checkWallCollision(head, canvas) {
   return false; // Pas de collision détectée
 }
 
+/**
+ * Vérifie si la tête du serpent entre en collision avec la nourriture
+ * 
+ * @param {{x: number, y: number}} head - Coordonnées de la tête du serpent
+ * @param {{x: number, y: number}} food - Coordonnées de la nourriture
+ * @returns {boolean} - Retourne `true` si la tête du serpent entre en collision avec la nourriture, sinon `false`.
+ */
 function checkFoodCollision(head, food) {
-  if (head.x === food.x && head.y === food.y){
+  if (head.x === food.x && head.y === food.y) {
     return true; // Collision avec la nourriture détectée
   }
+  return false; // Pas de collision détectée
 }
 
 export { checkCollision, checkWallCollision, checkFoodCollision };

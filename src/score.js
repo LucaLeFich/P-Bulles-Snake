@@ -8,7 +8,6 @@
  * @param {number} score - Le score à afficher, qui est un entier.
  * @param {number} time - Le temps écoulé en secondes.
  */
-
 function drawScore(ctx, score) {
   const x = 0;
   const y = 0;
@@ -24,6 +23,15 @@ function drawScore(ctx, score) {
 }
 export { drawScore };
 
+/**
+ * Dessine le minuteur sur le canvas.
+ *
+ * Cette fonction affiche le temps écoulé depuis le début de la partie dans le coin supérieur droit du canvas.
+ * Le temps est affiché en noir avec une police Arial de 20px.
+ *
+ * @param {CanvasRenderingContext2D} ctx - Le contexte de rendu 2D du canvas utilisé pour dessiner.
+ * @param {number} time - Le temps écoulé en secondes.
+ */
 function drawTimer(ctx, time) {
   const x = 300;
   const y = 0;
