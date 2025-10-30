@@ -11,7 +11,6 @@
 function drawScore(ctx, score) {
   const x = 0;
   const y = 0;
-  const width = 100;
   const height = 40;
 
   // Dessine le score en blanc, centré dans le carré
@@ -35,7 +34,6 @@ export { drawScore };
 function drawTimer(ctx, time) {
   const x = 300;
   const y = 0;
-  const width = 100;
   const height = 40;
 
   // Dessine le temps en noir, centré dans le carré
