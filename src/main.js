@@ -21,6 +21,7 @@ let startTime
 let isPaused = false;
 let pausedTime = 0;
 let pauseStart = 0;
+let isGameOver = false;
 
 /**
  * Gère les événements de changement de direction du serpent.
@@ -47,7 +48,7 @@ function mainMenu() {
   ctx.textAlign = "center";
   ctx.fillText("Press Enter to Start", canvas.width / 2, canvas.height / 2);
   document.addEventListener("keydown", (event) => {
-    if (event.code === config.keys.start) {
+    if (event.code === config.keys.start && !isPaused) {
       clearInterval(gameInterval);
       score = 0
       startGame();
@@ -67,6 +68,7 @@ function startGame() {
   food = generateFood(box, canvas);
   gameInterval = setInterval(draw, gameSpeed); // Stockage de l'identifiant de l'intervalle
   startTime = Date.now(); // Temps de début du jeu
+  isGameOver = false;
 }
 
 /**
@@ -75,7 +77,7 @@ function startGame() {
  * Cette fonction dessine l'écran de fin de jeu sur le canvas, affichant le message "Game Over !",
  * le score final du joueur, et le temps écoulé pendant la partie.
  */
-function endGame() {
+function gameOver() {
   ctx.fillStyle = "lightgrey";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "black";
@@ -84,6 +86,7 @@ function endGame() {
   ctx.fillText("Game Over !", canvas.width / 2, canvas.height / 2 - 50);
   ctx.fillText(`Score: ${score}`, canvas.width / 2, canvas.height / 2 -10);
   ctx.fillText(`Time: ${Math.floor((Date.now() - startTime - pausedTime) / 1000)} seconds`, canvas.width / 2, canvas.height / 2 +30);
+  isGameOver = true;
 }
 
 /**
@@ -124,9 +127,11 @@ function resumeGame() {
  * @param {KeyboardEvent} event - L'événement de clavier déclenché lors de l'appui sur une touche.
  */
 document.addEventListener("keydown", (event) => {
-  if (event.code === config.keys.pause) {
+  if (event.code === config.keys.pause && !isGameOver) {
     if (!isPaused) {
-      pauseGame();
+      setTimeout(() => {
+        pauseGame();
+      }, 100);
     } else {
       resumeGame();
     }
@@ -145,7 +150,7 @@ function draw() {
 
   if (checkCollision(snake[0], snake) || checkWallCollision(snake[0], canvas, box)) {
     clearInterval(gameInterval);
-    endGame();
+    gameOver();
   }
 
   if (checkFoodCollision(snake[0], food)) {
