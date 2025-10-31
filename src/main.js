@@ -131,7 +131,7 @@ document.addEventListener("keydown", (event) => {
     if (!isPaused) {
       setTimeout(() => {
         pauseGame();
-      }, 100);
+      }, 200);
     } else {
       resumeGame();
     }
